@@ -1,0 +1,7 @@
+LICENSE
+README.md
+.git
+^.*\.Rproj$
+^\.Rproj\.user$
+README.Rmd
+README.html

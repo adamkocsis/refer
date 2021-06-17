@@ -1,0 +1,28 @@
+Package: refer
+Type: Package
+Title: Reference list from data objects
+Version: 0.0.1
+Authors@R: c(
+	person(given="Adam T.", family="Kocsis", role=c("aut"),
+		   email="adam.t.kocsis@gmail.com", comment=c(ORCID="0000-0002-9028-665X")),
+ 	person(given="Nussaibah B.", family="Raja", role=c("cre", "aut"),
+			comment=c(ORCID="0000-0002-0000-3944"),	email="nussaibahraja@gmail.com"),
+	person(given="Deutsche Forschungsgemeinschaft", role="fnd"),
+	person(given="FAU GeoZentrum Nordbayern", role="fnd"))
+Maintainer: Nussaibah B. Raja <nussaibahraja@gmail.com>
+Description: The purpose of this extension is to facilitate the extraction of reference information from data objects that are based on published literature. Functions are implemented to prepare a list of source literature that comprises the data objects. This R extension was supported by the FAU GeoZentrum Nordbayern and is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
+License: CC BY 4.0
+Date: 2021-06-17
+BugReports: https://github.com/adamkocsis/refer/issues
+Encoding: UTF-8
+LazyData: false
+Depends:
+    R (>= 3.5.0),
+NeedsCompilation: no
+Imports:
+	utils
+RoxygenNote: 7.1.1
+Suggests:
+    knitr,
+    rmarkdown
+	

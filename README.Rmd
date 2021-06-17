@@ -1,0 +1,29 @@
+---
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(badger)
+```
+
+# rgplates 
+`r badge_devel("adamkocsis/refer", "green")`
+`r badge_cran_release("refer", "orange")`
+`r badge_cran_download("refer", "grand-total", "yellow")`
+`r badge_cran_checks("refer")`
+
+Reference list from data objects
+
+(Nussaïbah B. Raja and Ádám T. Kocsis)
+
+This R extension was supported by the FAU GeoZentrum Nordbayern and is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
+
+This is a beta version. 
+
+
+# Installing
+
+While the initial submissions are getting processed, the package can be built usiung the source deposited on this repository.
+
