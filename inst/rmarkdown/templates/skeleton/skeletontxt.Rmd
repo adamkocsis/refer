@@ -2,7 +2,7 @@
 output:
   pdf_document:
     citation_package: biblatex
-    keep_tex: false
+    keep_tex: no
     fig_caption: yes
     latex_engine: lualatex
     template: template.tex
@@ -41,7 +41,7 @@ kableExtra::kable_styling(kk, latex_options="hold_position")
 This is where you can add more details about the data cleaning and/or maniputation. 
 
 # Acknowledgements
-We would like to thank John Alroy and Charles Marshall, in addition to A. Miller, M. Koznik and others for their vision and critical early work in establishing the Paleobiology Database as well as the numerous contributors of data, without all of whom this study would not have been possible. This report was generated using the R package `refer` `r packageVersion("refer")` [@R-pkg-refer].
+We would like to thank John Alroy and Charles Marshall, in addition to A. Miller, M. Koznik and others for their vision and critical early work in establishing the Paleobiology Database as well as the numerous contributors of data, without all of whom this study would not have been possible. This report was generated using the R package `refer` `r packageVersion("refer")` [@refer2021].
 
 # Data Sources
 \setlength{\parindent}{0cm}

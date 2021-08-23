@@ -123,6 +123,7 @@ report <- function(inputFile,
   if(is.character(data_refs)){
     if(length(grep("\\.bib$", data_refs[1]))> 0){
       metadata$bibliography <- data_refs
+      metadata$bibliography[length(metadata$bibliography)+1] <- "packageref.bib"
       skeletonFile <- pkg_file("rmarkdown", "templates", "skeleton", "skeletonbib.Rmd")
       
     } else{
@@ -139,8 +140,11 @@ report <- function(inputFile,
   }
   
   #save reference for refer
-  write(knitr::write_bib("refer", prefix = "R-pkg-")[[1]],
-        file=file.path(output_path, metadata$bibliography[1]), append=TRUE)
+  pkg <- knitr::write_bib("refer")[[2]]
+  pkg[grep("\\}$", pkg)-1] <- gsub(",$", "", pkg[grep("\\}$", pkg)-1])
+  
+  write(pkg,
+        file=file.path(output_path, metadata$bibliography[length(metadata$bibliography)]), append=TRUE)
   
   output_file <- file.path(output_path, output_file)
   
