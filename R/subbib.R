@@ -18,9 +18,7 @@ subset_bib <- function(fname, index, output){
 	
 	#find start and end point
 	start <- grep("^@.+\\{", bib)
-	length(start)
-	end <- grep("\\}$", bib)
-	length(end)
+	end <- c(start[-1]-2, length(bib))
 	
 	bibindex <- data.frame(start,end)
 	
