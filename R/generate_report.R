@@ -125,19 +125,19 @@ report <- function(inputFile,
       metadata$bibliography <- data_refs
       skeletonFile <- pkg_file("rmarkdown", "templates", "skeleton", "skeletonbib.Rmd")
       
-    } else
+    } else{
       xfun::write_utf8(data_refs, con=file.path(output_path, "bib.txt"))
-    skeletonFile <- pkg_file("rmarkdown", "templates", "skeleton", "skeletontxt.Rmd")
-    metadata$params$bibliography <- "bib.txt"
+      skeletonFile <- pkg_file("rmarkdown", "templates", "skeleton", "skeletontxt.Rmd")
+      metadata$params$bibliography <- "bib.txt"
+      # create file for package reference
+      metadata$bibliography <- "packageref.bib"
+      file.create(file.path(output_path, metadata$bibliography))
+    }
     
-    # create file for package reference
-    metadata$bibliography <- "packageref.bib"
-    
-    file.create(file.path(output_path, metadata$bibliography))
   } else {
     stop("Please provide a valid reference list or file")
   }
-
+  
   #save reference for refer
   write(knitr::write_bib("refer", prefix = "R-pkg-")[[1]],
         file=file.path(output_path, metadata$bibliography[1]), append=TRUE)
