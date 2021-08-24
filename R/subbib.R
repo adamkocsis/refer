@@ -38,24 +38,43 @@ subset_bib <- function(fname, index, output){
 	refs <- bibindex[which(bibindex$start %in% i),]
 	
 	if(nrow(refs)==1){
-		refs <- list(refs[,1]:refs[,2])
+		refs <- matrix(refs[,1]:refs[,2], ncol=1)
 	} else{
 		refs <- apply(refs, 1, function(x) x[1]:x[2])
 	}
 	
-	for(i in 1:length(refs)){
-		temp <- bib[refs[[i]]]
-		temp <- temp[-grep("keywords", temp)]
+	if(is.matrix(refs)){
+		refs2 <- list()
 		
-		temp[length(temp)-1] <- paste0(temp[length(temp)-1], ",")
-		temp <- gsub(",,", ",", temp)
+		for(j in 1:ncol(refs)){
+			temp <- bib[refs[,j]]
+			temp <- temp[-grep("KEYWORDS", temp)]
+			
+			temp[length(temp)-1] <- paste0(temp[length(temp)-1], ",")
+			temp <- gsub(",,", ",", temp)
+			
+			temp[length(temp):(length(temp)+1)] <- c("KEYWORDS={data}", "}") # add keyword for references
+			
+			refs2[[j]] <- temp
+		}
+	} else {
+		refs2 <- list()
 		
-		temp[length(temp):(length(temp)+1)] <- c("keywords={data}", "}") # add keyword for references
-		
-		refs[[i]] <- temp
+		for(j in 1:length(refs)){
+			temp <- bib[refs[[j]]]
+			temp <- temp[-grep("KEYWORDS", temp)]
+			
+			temp[length(temp)-1] <- paste0(temp[length(temp)-1], ",")
+			temp <- gsub(",,", ",", temp)
+			
+			temp[length(temp):(length(temp)+1)] <- c("KEYWORDS={data}", "}") # add keyword for references
+			
+			refs2[[j]] <- temp
+		}
 	}
 	
-	refs <- unlist(refs)
+	refs <- unlist(refs2)
+	
 	if(file.exists(output)) file.remove(output)
 	refs <- refs[refs != ""]
 	xfun::write_utf8(refs, con=output)
