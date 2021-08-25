@@ -14,7 +14,7 @@
 #' }
 subset_bib <- function(fname, index, output){
 	
-	bib <- readLines(fname, encoding = "UTF-8")
+	bib <- xfun::read_utf8(fname)
 	
 	#find start and end point
 	start <- grep("^@.+\\{", bib)
@@ -38,7 +38,7 @@ subset_bib <- function(fname, index, output){
 	refs <- bibindex[which(bibindex$start %in% i),]
 	
 	if(nrow(refs)==1){
-		refs <- matrix(refs[,1]:refs[,2], ncol=1)
+		refs <- list(refs[,1]:refs[,2])
 	} else{
 		refs <- apply(refs, 1, function(x) x[1]:x[2])
 	}
@@ -62,7 +62,7 @@ subset_bib <- function(fname, index, output){
 		
 		for(j in 1:length(refs)){
 			temp <- bib[refs[[j]]]
-			temp <- temp[-grep("KEYWORDS", temp)]
+			temp <- temp[-grep("keywords", temp, ignore.case = T)]
 			
 			temp[length(temp)-1] <- paste0(temp[length(temp)-1], ",")
 			temp <- gsub(",,", ",", temp)
@@ -76,7 +76,7 @@ subset_bib <- function(fname, index, output){
 	refs <- unlist(refs2)
 	
 	if(file.exists(output)) file.remove(output)
-	refs <- refs[refs != ""]
+	
 	xfun::write_utf8(refs, con=output)
 	
 	message("References were saved in ", output)
