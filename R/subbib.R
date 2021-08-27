@@ -44,33 +44,23 @@ subset_bib <- function(fname, index, output){
 	}
 	
 	if(is.matrix(refs)){
-		refs2 <- list()
+		refs <- as.list(as.data.frame(refs))
+	}
+	
+	refs2 <- list()
+	
+	
+	for(j in 1:length(refs)){
+		temp <- bib[refs[[j]]]
+		temp <- temp[-grep("keywords", temp, ignore.case = T)]
+		temp <- temp[temp !=""]
 		
-		for(j in 1:ncol(refs)){
-			temp <- bib[refs[,j]]
-			temp <- temp[-grep("KEYWORDS", temp)]
-			
-			temp[length(temp)-1] <- paste0(temp[length(temp)-1], ",")
-			temp <- gsub(",,", ",", temp)
-			
-			temp[length(temp):(length(temp)+1)] <- c("KEYWORDS={data}", "}") # add keyword for references
-			
-			refs2[[j]] <- temp
-		}
-	} else {
-		refs2 <- list()
+		temp[length(temp)-1] <- paste0(temp[length(temp)-1], ",")
+		temp <- gsub(",,", ",", temp)
 		
-		for(j in 1:length(refs)){
-			temp <- bib[refs[[j]]]
-			temp <- temp[-grep("keywords", temp, ignore.case = T)]
-			
-			temp[length(temp)-1] <- paste0(temp[length(temp)-1], ",")
-			temp <- gsub(",,", ",", temp)
-			
-			temp[length(temp):(length(temp)+1)] <- c("KEYWORDS={data}", "}") # add keyword for references
-			
-			refs2[[j]] <- temp
-		}
+		temp[length(temp):(length(temp)+1)] <- c("KEYWORDS={data}", "}") # add keyword for references
+		
+		refs2[[j]] <- temp
 	}
 	
 	refs <- unlist(refs2)

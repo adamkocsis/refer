@@ -25,5 +25,5 @@ This is a beta version.
 
 # Installing
 
-While the initial submissions are getting processed, the package can be built usiung the source deposited on this repository.
+While the initial submissions are getting processed, the package can be built using the source deposited on this repository.
 
