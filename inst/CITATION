@@ -1,8 +1,8 @@
-citHeader("To cite rgplates in publications, use the following citation:")
+citHeader("To cite refer in publications, use the following citation:")
 
 citEntry(entry = "misc",
   title        = "refer: Reference list from data objects",
-  author       = personList(as.person("Nussaibah B. Raja"),as.person("Ádám T. Kocsis")),
+  author       = personList(as.person("Nussaïbah B. Raja"),as.person("Ádám T. Kocsis")),
   url          = "",
   year		= 2021,
 
