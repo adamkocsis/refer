@@ -1,10 +1,26 @@
-#Accessing file within the package
+#' Utility function to access a file within the package
 #' @export
 pkg_file <- function(...) {
 	system.file(..., package = "refer")
 }
 
-#Break url so that it fits in report
+#' Capitalise string
+#'
+#' @param string string to capitalise
+#'
+#' @export 
+capitalize <- function(string) {
+	paste0(toupper(substr(string, 1, 1)),
+		   tolower(substr(string, 2, nchar(string))))
+}
+
+
+#' Breaks a url over multiple lines so it fits on an A4 page
+#'
+#' @param x a vector containing the urls
+#' @param width the maximum number of characters in one line
+#' @param by by which character to break the lines
+#'
 #' @export
 wrap_url <- function(x, width=50, by=" "){
 	

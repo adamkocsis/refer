@@ -3,8 +3,7 @@
 #' Generates a report for data documentation from databases and for meta analyses.
 #' 
 #' @param inputFile (\code{csv}) path to metadata file. The template can be generated using the \code{\link{create_metadata}} function.
-#' @param data_refs (\code{data.frame}) data references. See \code{\link{generate_bib}} for more info.
-#' @param combine (\code{logical}) Should the generated reference file be combined? See \code{\link{generate_bib}} for more info.
+#' @param data_refs (\code{data.frame}) data references. 
 #' @param enterer_names (\code{character}) names of data enterers to be printed at the end of the report
 #' @param output_path folder in which to save report
 #' @param output_file file name of generated report. Must contain ".pdf" extension
@@ -37,7 +36,7 @@
 #' @export
 #'
 report <- function(inputFile,
-                   data_refs, combine=TRUE,
+                   data_refs,
                    enterer_names=NULL,
                    output_path=".", 
                    output_file="report.pdf",
@@ -59,7 +58,7 @@ report <- function(inputFile,
   }
   
   #read metadata from file
-  input <- read.csv(inputFile, header=FALSE, encoding="UTF-8")
+  input <- utils::read.csv(inputFile, header=FALSE, encoding="UTF-8")
   input <- input[input$V1 != "",]
   
   #metadata 
@@ -80,7 +79,7 @@ report <- function(inputFile,
     
   }
   
-  metadata <- setNames(split(metadata$V2, seq(nrow(metadata))), metadata$V1)
+  metadata <- stats::setNames(split(metadata$V2, seq(nrow(metadata))), metadata$V1)
   
   #authors & affiliations
   metadata[["authors"]] <- strsplit(metadata[["authors"]], ";")[[1]]
@@ -109,7 +108,7 @@ report <- function(inputFile,
   metadata$corresemail <- NULL
   
   specs <- input[(n+1):nrow(input),]
-  specs <- setNames(split(specs$V2, seq(nrow(specs))), specs$V1)
+  specs <- stats::setNames(split(specs$V2, seq(nrow(specs))), specs$V1)
   
   metadata$params <- specs
   
@@ -178,13 +177,6 @@ create_metadata <- function(path, edit=TRUE, overwrite=FALSE, return_path=TRUE){
   if(return_path) return(file.path(path, "metadata.csv"))
 }
 
-#' Capitalise string
-#'
-#' @export 
-capitalize <- function(string) {
-  paste0(toupper(substr(string, 1, 1)),
-         tolower(substr(string, 2, nchar(string))))
-}
 
 template_pandoc <- function(metadata, 
                             template,
