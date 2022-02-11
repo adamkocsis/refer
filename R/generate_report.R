@@ -59,65 +59,49 @@ report <- function(inputFile,
   }
   
   #read metadata from file
-  input <- read.csv(inputFile, header=FALSE, encoding="UTF-8")
-  input <- input[input$V1 != "",]
+  input <- yaml::read_yaml(inputFile)
   
   #metadata 
-  n <- grep("specs", input[,1])
+  n <- input$spec[[1]]
   
-  if(length(n) == 0) {
-    warning("No data specifications provided")
-    n=nrow(input)+1 #setting end of field
+  if(any(length(n) == 0|is.null(n)|trimws(n)=="")) {
+    warning("No data specifications provided, please provide a data source")
+    specs_sec <- NA #remove specs stuff
+  } else {
+    specs_sec <- "no"
   }
   
-  metadata <- input[2:(n-1),]
+  metadata <- input$metadata
   
-  #contains title and authors?
+  #contains title and authors - check ----
   pars <- c("title", "authors")
   
   for(p in pars){
-    if(length(grep(p, metadata$V1)) == 0| metadata$V2[grep(p, metadata$V1)]=="") warning(sprintf("No %s found", p))
+    if(length(metadata[p])==0| metadata[p]=="") {
+      warning(sprintf("No %s found", p))
+    }
     
   }
-  
-  metadata <- setNames(split(metadata$V2, seq(nrow(metadata))), metadata$V1)
-  
-  #authors & affiliations
-  metadata[["authors"]] <- strsplit(metadata[["authors"]], ";")[[1]]
-  metadata[["affiliation"]] <- strsplit(metadata[["affiliation"]], ";")[[1]]
   
   #add attributes for corresponding author
   metadata$corresauth <- as.numeric(metadata$corresauth)
   
-  metadata$authors[metadata$corresauth] <- paste0(metadata$authors[metadata$corresauth], "*")
+  metadata$authors[[1]]$name <- paste0(metadata$authors[[1]]$name, "*")
   metadata$corresauth <- paste("*Corresponding author, email:", metadata$corresemail)
   
-  authors <- metadata$authors
-  affiliation <- metadata$aff
-  
-  #multiple authors
-  multi <- list()
-  
-  for(i in 1:length(authors)){
-    multi[[i]] <- list(name=authors[i], 
-                       affiliation=affiliation[i])
-  }
-  
-  metadata$author <- multi
+  metadata$author <- metadata$authors
   
   metadata$affiliation <- metadata$authors <- NULL
   metadata$corresemail <- NULL
   
-  specs <- input[(n+1):nrow(input),]
-  specs <- setNames(split(specs$V2, seq(nrow(specs))), specs$V1)
-  
-  metadata$params <- specs
+  if(!is.null(specs_sec)){
+    metadata$params <- input$spec
+  }
   
   if(!is.null(enterer_names)){
     xfun::write_utf8(paste(enterer_names, collapse = ", "), con=file.path(output_path, "enterernames.txt"))
     metadata$enterer_names <- "enterernames.txt"
   }
-  
   
   # Format references -------------------------------------------------------
   if(is.character(data_refs)){
@@ -171,11 +155,11 @@ report <- function(inputFile,
 #' @export
 #'
 create_metadata <- function(path, edit=TRUE, overwrite=FALSE, return_path=TRUE){
-  file.copy(pkg_file("rmarkdown", "templates", "sample.csv"), to=file.path(path, "metadata.csv"))
+  file.copy(pkg_file("rmarkdown", "templates", "sample.yml"), to=file.path(path, "metadata.yml"))
   
-  if (edit) file.show(file.path(path, "metadata.csv"), overwrite=overwrite)
+  if (edit) file.show(file.path(path, "metadata.yml"), overwrite=overwrite)
   
-  if(return_path) return(file.path(path, "metadata.csv"))
+  if(return_path) return(file.path(path, "metadata.yml"))
 }
 
 #' Capitalise string

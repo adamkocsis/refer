@@ -1,0 +1,21 @@
+metadata:
+  title: Sample title
+  authors:
+    - name: Researcher 1
+      affiliation: Institute 1
+    - name: Researcher2
+      affiliation: Institute 2
+  corresauth: 1
+  corresemail: thisismyemail@fau.de
+  abstract: "abstract goes here"
+  keywords: one, two, freev
+
+spec:
+  source: The Paleobiology Database
+  url: "https://paleobiodb.org/data1.2/occs/list.csv?datainfo&rowcount&interval=Ediacaran,Holocene&show=class,classext,genus,subgenus,coll,coords,loc,paleoloc,strat,stratext,lith,env,ref,crmod,timebins,timecompare"
+  date_downloaded: 06/06/2020
+  data_format: Processed
+  data_access: Available within this report
+  taxa: Multiple
+  location: Global
+  time: Cambrian - Recent
