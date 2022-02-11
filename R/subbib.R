@@ -13,9 +13,7 @@
 #' subset_bib("pbdb_references.bib", index, "references.bib")
 #' }
 subset_bib <- function(fname, index, output){
-	
 	bib <- xfun::read_utf8(fname)
-	
 	#find start and end point
 	start <- grep("^@.+\\{", bib)
 	end <- c(start[-1]-2, length(bib))

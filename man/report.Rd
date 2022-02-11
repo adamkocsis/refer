@@ -7,7 +7,6 @@
 report(
   inputFile,
   data_refs,
-  combine = TRUE,
   enterer_names = NULL,
   output_path = ".",
   output_file = "report.pdf",
@@ -22,9 +21,7 @@ report(
 \arguments{
 \item{inputFile}{(\code{csv}) path to metadata file. The template can be generated using the \code{\link{create_metadata}} function.}
 
-\item{data_refs}{(\code{data.frame}) data references. See \code{\link{generate_bib}} for more info.}
-
-\item{combine}{(\code{logical}) Should the generated reference file be combined? See \code{\link{generate_bib}} for more info.}
+\item{data_refs}{(\code{data.frame}) data references.}
 
 \item{enterer_names}{(\code{character}) names of data enterers to be printed at the end of the report}
 
