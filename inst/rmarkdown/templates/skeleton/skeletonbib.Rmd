@@ -15,7 +15,9 @@ biblio-style: numeric
 ---
 # Overview
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+<!-- the following contains code that generates the metadata table, delete if not required -->
+
+```{r metadata, echo=FALSE, message=FALSE, warning=FALSE}
 #create data frame and formats text based on parameters provided
 specs <- gsub("_", " ", refer::capitalize(names(params)))
 details <- as.character(unlist(params))
@@ -38,9 +40,11 @@ kk <- kableExtra::kable_styling(kk, latex_options="hold_position")
 
 kk
 ```
+<!-- end of metadata table -->
 
-# Methods
-This is where you can add more details about the data cleaning and/or maniputation.
+# Details
+
+This is where you can add more details about the data cleaning and/or manipulation. This reports contain the references used for the study **STUDY NAME OR REFERENCE HERE**.
 
 # Acknowledgements
 We would like to thank John Alroy and Charles Marshall, in addition to A. Miller, M. Koznik and others for their vision and critical early work in establishing the Paleobiology Database as well as the numerous contributors of data, without all of whom this study would not have been possible. This report was generated using the R package `refer` `r packageVersion("refer")` [@refer2021].
