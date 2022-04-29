@@ -1,7 +1,7 @@
 Package: refer
 Type: Package
 Title: Reference list from data objects
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: c(
  	person(given="Nussaïbah B.", family="Raja", role=c("cre", "aut"),
 			comment=c(ORCID="0000-0002-0000-3944"),	email="nussaibahraja@gmail.com"),
