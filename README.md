@@ -1,5 +1,5 @@
 
-# rgplates
+# refer
 
 [![](https://img.shields.io/badge/devel%20version-0.0.1-green.svg)](https://github.com/adamkocsis/refer)
 [![](https://www.r-pkg.org/badges/version/refer?color=orange)](https://cran.r-project.org/package=refer)
